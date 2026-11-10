@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WEGE3 | Desafio do Investidor</title>
+  <meta name="description" content="Análise de valuation da WEG (WEGE3): histórico, premissas, fluxo de caixa, indicadores e recomendação.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23062014'/><path d='M5 23l7-8 5 5 10-12' fill='none' stroke='%23F5C542' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=Instrument+Sans:wght@400..700&family=JetBrains+Mono:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="grao" aria-hidden="true"></div>
+
+<!-- faixa de cotações -->
+<div class="fita" aria-hidden="true"><div class="fita-trilho" id="fita"></div></div>
+
+<header class="topo">
+  <a class="logo" href="#capa">
+    <svg viewBox="0 0 32 32" width="24" height="24" aria-hidden="true"><path d="M4 23l7-8 5 5 11-13" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span>WEGE3<em>valuation</em></span>
+  </a>
+  <div class="topo-acoes">
+    <span id="contador" class="contador mono">01 / 14</span>
+    <button type="button" id="btnNotas" class="btn-topo" title="Notas do apresentador (tecla N)">Notas</button>
+    <button type="button" id="btnTela" class="btn-topo" title="Tela cheia (tecla F)">Tela cheia</button>
+  </div>
+</header>
+
+<!-- progresso lateral -->
+<aside class="pregao" aria-hidden="true">
+  <div class="pregao-linha"><div class="pregao-fill" id="progresso"></div></div>
+  <span class="pregao-rotulo mono" id="progRotulo">capa</span>
+</aside>
+
+<main>
+
+<!-- ─────────────── CAPA ─────────────── -->
+<section class="tela capa" id="capa" data-titulo="Capa">
+  <canvas id="velas" aria-hidden="true"></canvas>
+  <div class="capa-brilho" aria-hidden="true"></div>
+  <div class="capa-miolo">
+    <p class="kicker mono">DESAFIO DO INVESTIDOR · B3 · WEGE3</p>
+    <h1>Vale a pena comprar <span class="ouro">WEG</span> hoje?</h1>
+    <p class="capa-sub">A gente fez o papel de analista de um fundo de ações. Olhamos três anos de balanço, projetamos cinco anos de caixa e calculamos quanto a ação vale de verdade.</p>
+    <a class="cta" href="#empresa">Começar a análise</a>
+    <dl class="ficha mono">
+      <div><dt>Grupo</dt><dd id="fGrupo"></dd></div>
+      <div><dt>Disciplina</dt><dd id="fDisciplina"></dd></div>
+      <div><dt>Data</dt><dd id="fData"></dd></div>
+    </dl>
+  </div>
+  <p class="capa-dica mono">setas do teclado trocam de tela · N mostra as notas</p>
+</section>
+
+<!-- ─────────────── 01 EMPRESA ─────────────── -->
+<section class="tela" id="empresa" data-titulo="A empresa">
+  <div class="miolo">
+    <p class="tag mono"><span>01</span> A EMPRESA</p>
+    <h2 class="revela">Uma fábrica de motores de <span class="ouro">Jaraguá do Sul</span> que virou multinacional</h2>
+    <div class="grade-2 larga-esq">
+      <div>
+        <div class="areas revela" id="areas"></div>
+        <p class="texto revela">Fábricas no Brasil, México, EUA, China, Índia e outros países. Cerca de metade da receita vem do exterior.</p>
+        <p class="nota mono revela">WEGE3 · CNPJ 84.429.695/0001-11</p>
+      </div>
+      <div class="painel revela">
+        <p class="painel-titulo mono">POR QUE ESCOLHEMOS A WEG</p>
+        <ul class="checklist" id="porQue"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 02 HISTÓRICO ─────────────── -->
+<section class="tela" id="historico" data-titulo="Histórico">
+  <div class="miolo">
+    <p class="tag mono"><span>02</span> HISTÓRICO DE 2023 A 2025</p>
+    <h2 class="revela">Cresce, lucra e mantém a margem</h2>
+    <div class="grade-2">
+      <div class="painel revela">
+        <div class="abas" id="abasHist" role="tablist"></div>
+        <div class="grafico" id="gHist"></div>
+        <p class="nota mono">R$ milhões · fonte: CVM, DFP consolidada</p>
+      </div>
+      <div class="revela"><div class="rolavel"><table class="tabela" id="tMargens"></table></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 03 CENÁRIO ─────────────── -->
+<section class="tela" id="cenario" data-titulo="Cenário">
+  <div class="miolo">
+    <p class="tag mono"><span>03</span> CENÁRIO</p>
+    <h2 class="revela">O que está acontecendo lá fora</h2>
+    <div class="noticias" id="noticias"></div>
+  </div>
+</section>
+
+<!-- ─────────────── 04 PREMISSAS ─────────────── -->
+<section class="tela" id="premissas" data-titulo="Premissas">
+  <div class="miolo">
+    <p class="tag mono"><span>04</span> PREMISSAS</p>
+    <h2 class="revela">As escolhas que sustentam a projeção</h2>
+    <div class="revela"><div class="rolavel"><table class="tabela compacta" id="tPremissas"></table></div></div>
+  </div>
+</section>
+
+<!-- ─────────────── 05 WACC ─────────────── -->
+<section class="tela" id="wacc" data-titulo="Taxa de desconto">
+  <div class="miolo">
+    <p class="tag mono"><span>05</span> TAXA DE DESCONTO (WACC)</p>
+    <h2 class="revela">Quanto o investidor exige para colocar dinheiro aqui</h2>
+    <div class="grade-2 larga-esq">
+      <div class="revela">
+        <ol class="passos" id="passos"></ol>
+        <div class="botoes">
+          <button type="button" class="btn" id="btnPasso">Próximo passo</button>
+          <button type="button" class="btn btn-vazado" id="btnTodos">Mostrar tudo</button>
+        </div>
+      </div>
+      <div class="painel destaque revela">
+        <p class="painel-titulo mono">TMA (WACC)</p>
+        <p class="numerao ouro mono" id="waccFinal">?</p>
+        <p class="nota mono">ao ano</p>
+        <p class="chip amarelo">Beta de 0,75 é estimativa [conferir]</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 06 FCFF ─────────────── -->
+<section class="tela" id="fcff" data-titulo="Fluxo de caixa">
+  <div class="miolo">
+    <p class="tag mono"><span>06</span> FLUXO DE CAIXA PROJETADO</p>
+    <h2 class="revela">O caixa que sobra de 2026 a 2030</h2>
+    <div class="grade-2 larga-esq">
+      <div class="painel revela">
+        <div class="grafico" id="gFcff"></div>
+        <p class="nota mono">FCFF em R$ milhões · clique em um ano para ver a conta</p>
+      </div>
+      <div class="revela">
+        <p class="formula mono">FCFF = EBIT × (1 − IR) + depreciação − CAPEX − aumento do capital de giro</p>
+        <div class="rolavel"><table class="tabela" id="tConta"></table></div>
+        <p class="chip ouro-chip">Valor terminal em 2030 (Gordon): R$ 80.042 mi</p>
+      </div>
+    </div>
+    <div class="revela"><div class="rolavel"><table class="tabela compacta" id="tProjecao"></table></div></div>
+  </div>
+</section>
+
+<!-- ─────────────── 07 INDICADORES ─────────────── -->
+<section class="tela" id="indicadores" data-titulo="Indicadores">
+  <div class="miolo">
+    <p class="tag mono"><span>07</span> INDICADORES</p>
+    <h2 class="revela">Comprando a empresa inteira pelo preço de hoje</h2>
+    <p class="texto revela">Investimento inicial (T0): <b class="ouro mono">R$ 211.836 mi</b>, o valor da empresa inteira hoje (ações de R$ 214.525 mi menos caixa líquido de R$ 2.689 mi).</p>
+    <div class="kpis revela" id="kpis"></div>
+    <div class="painel revela">
+      <p class="painel-titulo mono">QUANTO DO PREÇO DE HOJE O CAIXA PAGA?</p>
+      <div id="barrasPayback" class="barras-h"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 08 RENTABILIDADE ─────────────── -->
+<section class="tela" id="rentabilidade" data-titulo="Rentabilidade">
+  <div class="miolo">
+    <p class="tag mono"><span>08</span> RENTABILIDADE</p>
+    <h2 class="revela">Uma empresa que dá muito retorno</h2>
+    <div class="revela"><div class="rolavel"><table class="tabela compacta" id="tRent"></table></div></div>
+    <p class="nota mono revela">P = projetado · ROI pela fórmula do enunciado: (receita − CPV) / CPV</p>
+    <div class="grade-2 iguais">
+      <div class="painel revela"><p class="grande verde">ROE acima de 25%</p><p>em todos os anos, no histórico e na projeção</p></div>
+      <div class="painel revela"><p class="grande ouro">ROI perto de 50%</p><p>a cada R$ 1 de custo, a WEG vende por cerca de R$ 1,50</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 09 PREÇO JUSTO ─────────────── -->
+<section class="tela" id="preco" data-titulo="Preço justo">
+  <div class="miolo">
+    <p class="tag mono"><span>09</span> PREÇO JUSTO X COTAÇÃO</p>
+    <div class="placar revela">
+      <div class="placar-item">
+        <p class="mono rotulo">PREÇO JUSTO</p>
+        <p class="placar-num vermelho mono" data-conta="14.29">R$ 14,29</p>
+      </div>
+      <div class="placar-item">
+        <p class="mono rotulo">COTAÇÃO NA B3</p>
+        <p class="placar-num mono" data-conta="51.11">R$ 51,11</p>
+      </div>
+      <div class="placar-item">
+        <p class="mono rotulo">POTENCIAL</p>
+        <p class="placar-num vermelho mono" id="potBase">−72%</p>
+      </div>
+    </div>
+    <div class="grade-2 larga-esq">
+      <div class="painel revela">
+        <p class="painel-titulo mono">PREÇO JUSTO EM 3D · WACC X CRESCIMENTO APÓS 2030</p>
+        <div id="superficie" class="superficie"></div>
+        <p class="nota mono">Arraste para girar. O plano vermelho é a cotação de R$ 51,11.</p>
+      </div>
+      <div class="revela">
+        <div class="rolavel"><table class="tabela sens" id="tSens"></table></div>
+        <p class="nota mono" id="sensDica">Passe o mouse numa célula para ler o cenário.</p>
+        <p class="texto forte">Nenhum cenário chega aos <span class="ouro">R$ 51,11</span> da cotação.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 10 SIMULADOR ─────────────── -->
+<section class="tela" id="simulador" data-titulo="E se...?">
+  <div class="miolo">
+    <p class="tag mono"><span>10</span> E SE...?</p>
+    <h2 class="revela">Mesa de operações: mexa nas premissas</h2>
+    <div class="grade-2 larga-dir">
+      <div class="painel controles revela" id="controles"></div>
+      <div class="revela">
+        <div class="rolavel"><table class="tabela compacta" id="tSim"></table></div>
+        <div class="painel">
+          <p class="painel-titulo mono">PARA A AÇÃO VALER A COTAÇÃO, SERIA PRECISO</p>
+          <div id="pressupoe" class="pressupoe"></div>
+        </div>
+        <div class="botoes"><button type="button" class="btn" id="btnVoltar">Voltar às premissas do grupo</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 11 RECOMENDAÇÃO ─────────────── -->
+<section class="tela" id="recomendacao" data-titulo="Recomendação">
+  <div class="miolo">
+    <p class="tag mono"><span>11</span> RECOMENDAÇÃO</p>
+    <div class="grade-2 larga-dir">
+      <div class="revela">
+        <div class="carimbo" id="selo"></div>
+        <p class="tese" id="tese"></p>
+      </div>
+      <ol class="motivos revela" id="motivos"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────────── 12 RISCOS ─────────────── -->
+<section class="tela" id="riscos" data-titulo="Riscos">
+  <div class="miolo">
+    <p class="tag mono"><span>12</span> RISCOS E LIMITAÇÕES</p>
+    <h2 class="revela">O que faria a gente estar errado</h2>
+    <div class="riscos" id="riscos-lista"></div>
+  </div>
+</section>
+
+<!-- ─────────────── 13 FONTES ─────────────── -->
+<section class="tela" id="fontes" data-titulo="Fontes">
+  <div class="miolo">
+    <p class="tag mono"><span>13</span> FONTES</p>
+    <div class="grade-2 larga-esq">
+      <div class="revela"><div class="rolavel"><table class="tabela" id="tFontes"></table></div></div>
+      <div class="obrigado revela">
+        <p class="obrigado-titulo">Obrigado!</p>
+        <p class="obrigado-sub">Perguntas?</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<aside id="notas" class="notas" hidden>
+  <div class="notas-topo">
+    <strong id="notasTitulo" class="mono">NOTAS</strong>
+    <button type="button" class="btn-topo" id="btnFecharNotas">Fechar</button>
+  </div>
+  <div id="notasTexto" class="notas-texto"></div>
+</aside>
+
+<div id="dica" class="tooltip" hidden></div>
+
+<script type="importmap">
+  { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+                 "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+</script>
+<script src="js/data.js"></script>
+<script src="js/model.js"></script>
+<script src="js/velas.js"></script>
+<script src="js/main.js"></script>
+<script type="module" src="js/superficie.js"></script>
+</body>
+</html>
