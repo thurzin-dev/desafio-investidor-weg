@@ -2,9 +2,9 @@
 // Valores em R$ milhões, salvo indicação.
 
 const GRUPO = {
-  nomes: "[nomes do grupo]",
-  disciplina: "[nome da disciplina]",
-  data: "[data da apresentação]",
+  nomes: "Arthur Pivatto Fachin",
+  disciplina: "Adm. Financeira e Orçamentária (AFO)",
+  data: "10/11/2026",
 };
 
 const HISTORICO = {
@@ -86,7 +86,7 @@ const FONTES = [
 // Notas do apresentador, uma por tela. Aparecem com a tecla N.
 const NOTAS = {
   capa: [
-    "Boa noite. Nós somos o grupo [nome] e a empresa que escolhemos foi a WEG, código WEGE3 na B3.",
+    "Boa noite. Meu nome é Arthur, e a empresa que eu escolhi foi a WEG, código WEGE3 na B3.",
     "No trabalho a gente faz o papel de analista de um fundo de ações. Olhamos os últimos três anos da empresa, projetamos o caixa dos próximos cinco anos e, no final, dizemos se o fundo deveria comprar, manter ou vender a ação.",
     "Já adiantando a conclusão: a WEG é uma empresa muito boa, mas no preço de hoje a ação está cara. O resto da apresentação mostra como a gente chegou nisso.",
     "Se perguntarem por que a WEG: ela tem mais caixa do que dívida, o lucro é estável, os dados estão completos na CVM e ela não está em recuperação judicial, que o professor proibiu.",
